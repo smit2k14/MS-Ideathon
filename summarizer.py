@@ -1,15 +1,23 @@
 import nltk
+import sys
 import networkx as nx
 from utils import *
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 if __name__ == '__main__':
+    if len(sys.argv) != 3:
+        print("See the usage on how to use this")
+        exit()
+
     try:
         stop_words = stopwords.words('english')
     except:
         nltk.download('stopwords')
         stop_words = stopwords.words('english')
     
-    with open('rasputin_data.txt') as f:
+    with open(sys.argv[1]) as f:
         dataset = f.read()
 
     dataset = dataset.split('.')
@@ -21,6 +29,7 @@ if __name__ == '__main__':
     ranked_sentence = sorted(((scores[i],s) for i,s in enumerate(dataset)))
     
     summarized_data = []
+    n_summ_sent = sys.argv[2]
     for i in range(5):
         summarized_data.append("".join(ranked_sentence[i][1]))
 
