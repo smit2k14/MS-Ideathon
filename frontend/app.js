@@ -48,9 +48,15 @@ RandImgBtn.addEventListener("click", e => {
 	// });
 	setTimeout(() => {
 		outputBox.html(
-			`<video width="320" height="240" controls>
+			`<h2> The Compressed Video </h2>
+			<video width="320" height="240" controls>
 				<source src="../video-compression/hello.mp4" type="video/mp4" />
-			</video>`
+			</video>
+			<h2> The Decompressed Video </h2>
+			<video width="320" height="240" controls>
+				<source src="../video-compression/hello.mp4" type="video/mp4" />
+			</video>
+			`
 		);
 	}, 1000);
 });
