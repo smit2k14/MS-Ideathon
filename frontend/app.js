@@ -9,9 +9,9 @@ const outputBox = $("#outputBox");
 const txtLoader = document.getElementById("txtLoader");
 
 RandImgBtn.addEventListener("click", e => {
-	e.preventDefault();
+  e.preventDefault();
 
-	outputBox.html(`<div class="loader loader--style5 text-center" title="4">
+  outputBox.html(`<div class="loader loader--style5 text-center" title="4">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px" y="0px" width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;"
           xml:space="preserve">
@@ -29,34 +29,34 @@ RandImgBtn.addEventListener("click", e => {
           </rect>
         </svg>
       </div>`);
-	// $.ajax({
-	// 	url: `${baseUrl}/random-image`,
-	// 	headers: { "Access-Control-Allow-Origin": `${baseUrl}/random-image` },
-	// 	type: "GET",
-	// 	crossDomain: true,
+  // $.ajax({
+  // 	url: `${baseUrl}/random-image`,
+  // 	headers: { "Access-Control-Allow-Origin": `${baseUrl}/random-image` },
+  // 	type: "GET",
+  // 	crossDomain: true,
 
-	// 	success: function(fileName) {
-	// 		if (fileName) {
-	// 			outputBox.html(
-	// 				`<img class="card-img-top random-image" src="${baseUrl}/dcgan/resultImg/${fileName}">`
-	// 			);
-	// 		}
-	// 	},
-	// 	error: function(xhr, status) {
-	// 		alert("error");
-	// 	}
-	// });
-	setTimeout(() => {
-		outputBox.html(
-			`<h2> The Compressed Video </h2>
+  // 	success: function(fileName) {
+  // 		if (fileName) {
+  // 			outputBox.html(
+  // 				`<img class="card-img-top random-image" src="${baseUrl}/dcgan/resultImg/${fileName}">`
+  // 			);
+  // 		}
+  // 	},
+  // 	error: function(xhr, status) {
+  // 		alert("error");
+  // 	}
+  // });
+  setTimeout(() => {
+    outputBox.html(
+      `<h2> The Compressed Video </h2>
 			<video width="320" height="240" controls>
-				<source src="../video-compression/hello.mp4" type="video/mp4" />
+				<source src="../video-compression/gen_shit1.mp4" type="video/mp4" />
 			</video>
 			<h2> The Decompressed Video </h2>
 			<video width="320" height="240" controls>
-				<source src="../video-compression/hello.mp4" type="video/mp4" />
+				<source src="../video-compression/gen_shit2.mp4" type="video/mp4" />
 			</video>
 			`
-		);
-	}, 1000);
+    );
+  }, 10000);
 });
