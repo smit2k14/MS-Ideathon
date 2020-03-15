@@ -4,8 +4,14 @@ We want to provide education to the places where internet connectivity is minima
 
 ### Usage
 
-For summarizer, run 
+For summarizer, run
 
 ```
 python3 summarizer.py <text-name.txt> <no-of-summarized-sentences>
+```
+
+For video compressor, you will need `ffmpeg` program installed. To install, run
+
+```
+sudo apt-get install ffmpeg
 ```

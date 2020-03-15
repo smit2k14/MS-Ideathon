@@ -2,4 +2,3 @@
 *.pdf
 __pycache__
 venv
-.vscode

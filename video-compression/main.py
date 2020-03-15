@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
+import subprocess
 
 cap = cv2.VideoCapture('hello.mp4')
 count = 0
@@ -28,14 +29,13 @@ while(True):
         transformed_frames = pca.fit_transform(col_vec)
         generated_frames = pca.inverse_transform(transformed_frames)
 
-
         #generated_frames[:, i] is the generated image frame by frame and vid_matrix is the orginal image
         for i in range(no_frames):
             
             plt.figure(1)
             plt.imshow(generated_frames[:, i].reshape(278, 500))
             plt.title('Recreated')
-            plt.show()
+            plt.savefig(f"img-{i}.png")
             plt.figure(2)
             plt.imshow(vid_matrix[:, :, i].reshape(278, 500))
             plt.title('Original')
@@ -48,3 +48,5 @@ while(True):
         break
 
 cv2.destroyAllWindows()
+
+subprocess.run(["ffmpeg", "-i", "img-%d.png", "-vcodec", "mpeg4", "output.mp4"])
