@@ -34,7 +34,7 @@ while(True):
         if pca is None:
             print("WHY THE FUCK!!!")
         pca_cnt+=1
-        gen_matrix = pca.inverse_transform(enc_matrix.reshape((height * width, enc_matrix.shape[2])))
+        gen_matrix = pca.inverse_transform(enc_matrix)
         gen_matrix = gen_matrix.reshape((height, width, no_frames))
         for i in range(no_frames):
             cv2.imwrite(f'dec-{img_cnt}.png', gen_matrix[:, :, i])

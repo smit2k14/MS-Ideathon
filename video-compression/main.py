@@ -16,8 +16,9 @@ vid_matrix = np.zeros((height, width, no_frames))
 
 n_components = 4
 img_cnt = 0
-
+dec_cnt = 0
 pca_cnt = 0
+
 while(True):
     ret, frame = cap.read()
     if frame is None:
@@ -25,9 +26,6 @@ while(True):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     vid_matrix[:, :, count] = gray
     count+=1
-
-    if img_cnt >= 100:
-        break
 
     if count == no_frames:
         col_vec = np.zeros((gray.shape[0] * gray.shape[1], no_frames))
@@ -51,6 +49,11 @@ while(True):
             cv2.imwrite(f"img-{img_cnt}.png", transformed_frames[:, i].reshape(height, width))
             img_cnt += 1
         
+        for i in range(no_frames):
+            cv2.imwrite(f"dec-{dec_cnt}.png", generated_frames[:, i].reshape(height, width))
+            dec_cnt += 1
+        
+
         count = 0
 
 
@@ -59,7 +62,13 @@ while(True):
 
 cv2.destroyAllWindows()
 
-subprocess.run(["ffmpeg", "-i", "img-%d.png", "-vcodec", "mpeg4", "gen_shit.mp4"])
+subprocess.run(["ffmpeg", "-i", "img-%d.png", "-vcodec", "mpeg4", "gen_shit1.mp4"])
 
 for i in range(img_cnt):
     subprocess.run(['rm', f'img-{i}.png'])
+
+
+subprocess.run(["ffmpeg", "-i", "dec-%d.png", "-vcodec", "mpeg4", "gen_shit2.mp4"])
+
+for i in range(dec_cnt):
+    subprocess.run(['rm', f'dec-{i}.png'])
