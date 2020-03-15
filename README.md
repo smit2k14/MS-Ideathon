@@ -7,5 +7,5 @@ We want to provide education to the places where internet connectivity is minima
 For summarizer, run 
 
 ```
-python3 summarizer.py (no-of-summarized-sentences)
+python3 summarizer.py <text-name.txt> <no-of-summarized-sentences>
 ```
