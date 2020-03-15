@@ -34,15 +34,15 @@ RandImgBtn.addEventListener("click", e => {
 		outputBox.html(
 			`<h2> The Compressed Video </h2>
 			<video width="320" height="240" controls>
-				<source src="../video-compression/hello.mp4" type="video/mp4" />
+				<source src="../video-compression/gen_shit1.mp4" type="video/mp4" />
 			</video>
 			<h2> The Decompressed Video </h2>
 			<video width="320" height="240" controls>
-				<source src="../video-compression/hello.mp4" type="video/mp4" />
+				<source src="../video-compression/gen_shit2.mp4" type="video/mp4" />
 			</video>
 			`
 		);
-	}, 1000);
+	}, 10000);
 });
 
 txtSummarize.addEventListener("click", e => {
