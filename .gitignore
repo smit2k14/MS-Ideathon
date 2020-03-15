@@ -6,3 +6,6 @@ venv
 .gitignore~
 ..gitign*
 *.mp4
+pca*
+AlphaQ.png
+rgb2gray.py

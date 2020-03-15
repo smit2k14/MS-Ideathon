@@ -14,7 +14,7 @@ height = 360
 no_frames = 16
 vid_matrix = np.zeros((height, width, no_frames))
 
-n_components = 4
+n_components = 8
 img_cnt = 0
 dec_cnt = 0
 pca_cnt = 0
