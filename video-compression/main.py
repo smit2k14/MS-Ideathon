@@ -3,15 +3,21 @@ import cv2
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 import subprocess
+import pickle
 
-cap = cv2.VideoCapture('hello.mp4')
+cap = cv2.VideoCapture('vid1.mp4')
 count = 0
 
-no_frames = 4
-vid_matrix = np.zeros((278, 500, no_frames))
+width = 480
+height = 360
 
-n_components = 2
+no_frames = 16
+vid_matrix = np.zeros((height, width, no_frames))
 
+n_components = 4
+img_cnt = 0
+
+pca_cnt = 0
 while(True):
     ret, frame = cap.read()
     if frame is None:
@@ -20,6 +26,9 @@ while(True):
     vid_matrix[:, :, count] = gray
     count+=1
 
+    if img_cnt >= 100:
+        break
+
     if count == no_frames:
         col_vec = np.zeros((gray.shape[0] * gray.shape[1], no_frames))
 
@@ -27,19 +36,20 @@ while(True):
             col_vec[:, i] = vid_matrix[:, :, i].reshape((gray.shape[0] * gray.shape[1]))
         pca = PCA(n_components = n_components)
         transformed_frames = pca.fit_transform(col_vec)
-        generated_frames = pca.inverse_transform(transformed_frames)
 
+        with open('pca-{}'.format(pca_cnt), 'wb') as f:
+            pickle.dump(pca, f)
+        
+        with open('pca-{}'.format(pca_cnt), 'rb') as f:
+            pca = pickle.load(f)
+        
+
+        pca_cnt += 1
+        generated_frames = pca.inverse_transform(transformed_frames)
         #generated_frames[:, i] is the generated image frame by frame and vid_matrix is the orginal image
-        for i in range(no_frames):
-            
-            plt.figure(1)
-            plt.imshow(generated_frames[:, i].reshape(278, 500))
-            plt.title('Recreated')
-            plt.savefig(f"img-{i}.png")
-            plt.figure(2)
-            plt.imshow(vid_matrix[:, :, i].reshape(278, 500))
-            plt.title('Original')
-            plt.show()
+        for i in range(n_components):
+            cv2.imwrite(f"img-{img_cnt}.png", transformed_frames[:, i].reshape(height, width))
+            img_cnt += 1
         
         count = 0
 
@@ -49,4 +59,7 @@ while(True):
 
 cv2.destroyAllWindows()
 
-subprocess.run(["ffmpeg", "-i", "img-%d.png", "-vcodec", "mpeg4", "output.mp4"])
+subprocess.run(["ffmpeg", "-i", "img-%d.png", "-vcodec", "mpeg4", "gen_shit.mp4"])
+
+for i in range(img_cnt):
+    subprocess.run(['rm', f'img-{i}.png'])
